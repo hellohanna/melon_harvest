@@ -85,17 +85,69 @@ def make_melon_type_lookup(melon_types):
 class Melon(object):
     """A melon in a melon harvest."""
 
-    # Fill in the rest
-    # Needs __init__ and is_sellable methods
+    def __init__(self, melon_type, shape_rating, color_rating, field, harvester):
+        self.melon_type = melon_type
+        self.shape_rating = shape_rating
+        self.color_rating = color_rating
+        self.field = field
+        self.harvester = harvester
+
+    def is_sellable(self):
+
+        if self.shape_rating > 5 and self.color_rating > 5 and self.field != 3:
+            return True
+        return False
+
 
 def make_melons(melon_types):
     """Returns a list of Melon objects."""
 
-    # Fill in the rest
+    harvested_melons = []
+
+    melons_by_id = make_melon_type_lookup(melon_types)
+
+    melon1 = Melon(melons_by_id["yw"], 8, 7, 2, "Sheila")
+    harvested_melons.append(melon1)
+
+    melon2 = Melon(melons_by_id["yw"], 3, 4, 2, "Sheila")
+    harvested_melons.append(melon2)
+    
+    melon3 = Melon(melons_by_id["yw"], 9, 8, 3, "Sheila")
+    harvested_melons.append(melon3)
+
+    melon4 = Melon(melons_by_id["cas"], 10, 6, 35, "Sheila")
+    harvested_melons.append(melon4)
+
+    melon5 = Melon(melons_by_id["cren"], 8, 9, 35, "Michael")
+    harvested_melons.append(melon5)
+
+    melon6 = Melon(melons_by_id["cren"], 8, 2, 35, "Michael")
+    harvested_melons.append(melon6)
+
+    melon7 = Melon(melons_by_id["cren"], 2, 3, 4, "Michael")
+    harvested_melons.append(melon7)
+    
+    melon8 = Melon(melons_by_id["musk"], 6, 7, 4, "Michael")
+    harvested_melons.append(melon8)
+    
+    melon9 = Melon(melons_by_id["yw"], 7, 10, 3, "Sheila")
+    harvested_melons.append(melon9)
+
+
+    return harvested_melons
+
 
 def get_sellability_report(melons):
     """Given a list of melon object, prints whether each one is sellable."""
 
+    for melon in melons:
+        sellable = "(NOT SELLABLE)"
+        if melon.is_sellable:
+            sellable = "(CAN BE SOLD)"
+        print("Harvested by {} from field {} {}".format(melon.harvester,
+            melon.field,sellable))
+
+
     # Fill in the rest 
 
-
+get_sellability_report(make_melons(make_melon_types()))
